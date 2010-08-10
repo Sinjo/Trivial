@@ -38,6 +38,7 @@ final class Question {
 		try {
 		questionComponents = Arrays.asList(input.split(","));
 		} catch (final NullPointerException e) {
+			// TODO: Check if input is null, throw IllegalArgumentException
 			throw new RuntimeException("Question to be parsed was null.", e); // Dev String
 		}
 		
@@ -51,6 +52,7 @@ final class Question {
 			}
 			
 		} catch (final IndexOutOfBoundsException e) {
+			// TODO: Check earlier that the correct number of parts is given, IllegalArgumentException if not
 			throw new RuntimeException("Question provided had an invalid format: Insufficient Parts.", e); // Dev String
 		}
 		
