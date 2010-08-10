@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trivial</string>
+    
+    <!-- Displayed on the button which begins the quiz when clicked -->
+    <string name="start_quiz">Start Quiz</string>
+</resources>
