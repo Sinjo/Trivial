@@ -19,7 +19,7 @@ public class QuizActivity extends Activity {
 	
 	private final ArrayList<Question> questions = new ArrayList<Question>();
 	
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(final Bundle savedInstanceState) {
 		
 		// Load up all questions available from the files
 		try {

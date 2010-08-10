@@ -15,7 +15,7 @@ final class Question {
 	private final String question;
 	private final ArrayList<String> answers;
 	
-	private Question(String questionType, String question, ArrayList<String> answers) {
+	private Question(final String questionType, final String question, final ArrayList<String> answers) {
 		this.questionType = questionType;
 		this.question = question;
 		this.answers = answers;
@@ -27,7 +27,7 @@ final class Question {
 	 * @param input The input String made up of the type of question, the question itself, and the answers (comma separated).
 	 * @return a {@link Question} representation of the input string.
 	 */
-	public static Question parse(String input) {
+	public static Question parse(final String input) {
 		
 		final List<String> questionComponents;
 		final String questionType;
