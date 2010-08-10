@@ -23,14 +23,15 @@ public class QuizActivity extends Activity {
 		
 		// Load up all questions available from the files
 		try {
-			for (final String s : getAssets().list("questions/")) {
-				final InputStream input = getAssets().open("questions/" + s);
+			for (final String fileName : getAssets().list("questions/")) {
+				final InputStream input = getAssets().open("questions/" + fileName);
 				
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
-				// Populate our questions ArrayList
-				while (reader.ready()) {
-					questions.add(Question.parse(reader.readLine()));
+				String inputLine;
+				// Populate the questions ArrayList
+				while (null != (inputLine = reader.readLine())) {
+					questions.add(Question.parse(inputLine));
 				}
 			}
 		} catch (final IOException e) {
