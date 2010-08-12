@@ -42,6 +42,7 @@ final class Question {
 	 * 
 	 * @param input The input String made up of the type of question, the question itself, and the answers (comma separated).
 	 * @return a {@link Question} representation of the input string.
+	 * @throws IllegalArgumentException
 	 */
 	public static Question parse(final String input) {
 		
