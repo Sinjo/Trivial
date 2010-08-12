@@ -23,4 +23,9 @@
     
     <!-- Displayed on the button which begins the quiz when clicked -->
     <string name="start_quiz">Start Quiz</string>
+    
+    <!-- Strings displayed when errors are encountered -->
+    
+    <!-- IOException while loading the questions from the asset files -->
+    <string name="question_reading_ioexception">A problem was encountered while loading the questions. Please send the developer a bug report.</string>
 </resources>
