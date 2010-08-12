@@ -112,7 +112,7 @@ final class Question {
 	 * @return the correct answer to the {@link Question}
 	 */
 	public final String getAnswer() {
-		return answers.get(2);
+		return answers.get(0);
 	}
 
 }
