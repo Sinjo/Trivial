@@ -31,7 +31,7 @@
 	<!-- Number of strings that could not be parsed -->
 	<plurals name="question_reading_parse_fail_number">
         <item quantity="one">1 question could not be parsed, and has been logged. Please send the developer a bug report including log output.</item>
-        <item quantity="other">%d questions could not be parsed, and have been logged. Please send the developer a bug report including log output.</item>
+        <item quantity="other">%1$d questions could not be parsed, and have been logged. Please send the developer a bug report including log output.</item>
     </plurals>
 
 </resources>
