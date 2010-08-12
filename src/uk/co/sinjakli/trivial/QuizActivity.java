@@ -55,10 +55,7 @@ public class QuizActivity extends Activity {
 		} catch (final IOException e) {
 			// TODO: Don't rethrow, give user feedback, log stack trace
 			throw new RuntimeException("IO Error reading question file.", e); // Dev String
-		} catch (final NullPointerException e) {
-			// TODO: Don't rethrow, give user feedback, log stack trace, this happening indicates major failure
-			throw new RuntimeException("Attempted to open non-existant file.", e); // Dev String
-		}
+		} 
 	
 		// Randomise the output order of the questions
 		Collections.shuffle(questions);
