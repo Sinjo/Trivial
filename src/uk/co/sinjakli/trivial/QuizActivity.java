@@ -27,10 +27,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 
 public class QuizActivity extends Activity {
+	
+	// Private Constants
+	private static final String TAG = "MyActivity";
+	
+	// Load available resources
+	private final Resources res = getResources();
 	
 	private final ArrayList<Question> questions = new ArrayList<Question>();
 	
@@ -40,22 +49,33 @@ public class QuizActivity extends Activity {
 		try {
 			for (final String fileName : getAssets().list("questions/")) {
 				final InputStream input = getAssets().open("questions/" + fileName);
-				
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
-				String inputLine;
 				// Populate the questions ArrayList
+				String inputLine;
+				int numberOfFailedParses = 0;
 				while (null != (inputLine = reader.readLine())) {
-					if (inputLine.startsWith("//")) {
-						break;
+					// Ignore any comments in the question file
+					if (!inputLine.startsWith("//")) {
+						try {
+							questions.add(Question.parse(inputLine));
+						} catch (final IllegalArgumentException e) {
+							numberOfFailedParses++;
+							Log.e(TAG, "Unable to parse question: " + inputLine, e); // Dev String
+						}
 					}
-					questions.add(Question.parse(inputLine));
+				}
+				
+				// If any questions failed to parse, summarise how many failed
+				if (0 < numberOfFailedParses) {
+					Log.e(TAG, numberOfFailedParses + " questions were unable to be parsed"); // Dev String
+					Toast.makeText(getApplicationContext(), String.format(res.getString(R.plurals.question_reading_parse_fail_number), numberOfFailedParses), Toast.LENGTH_LONG).show();
 				}
 			}
 		} catch (final IOException e) {
-			// TODO: Don't rethrow, give user feedback, log stack trace
-			throw new RuntimeException("IO Error reading question file.", e); // Dev String
-		} 
+			Log.e(TAG, "Error reading questions.", e); // Dev String
+			Toast.makeText(getApplicationContext(), res.getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
+		}
 	
 		// Randomise the output order of the questions
 		Collections.shuffle(questions);
