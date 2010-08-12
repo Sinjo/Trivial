@@ -41,15 +41,21 @@ public class QuizActivity extends Activity {
 	// Load available resources
 	private final Resources res = getResources();
 	
-	private final ArrayList<Question> questions = new ArrayList<Question>();
+	// Load up all questions available from the files
+	private final ArrayList<Question> questions = loadQuestions("questions/");
 	
 	public void onCreate(final Bundle savedInstanceState) {
-		
-		// Load up all questions available from the files
+
+		// Randomise the output order of the questions
+		Collections.shuffle(questions);
+	}
+
+	private ArrayList<Question> loadQuestions(final String questionFilePath) {
+		final ArrayList<Question> questions = new ArrayList<Question>();
 		try {
 			int failedParsesTotal = 0;
-			for (final String fileName : getAssets().list("questions/")) {
-				final InputStream input = getAssets().open("questions/" + fileName);
+			for (final String fileName : getAssets().list(questionFilePath)) {
+				final InputStream input = getAssets().open(questionFilePath + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
 				// Populate the questions ArrayList
@@ -70,7 +76,7 @@ public class QuizActivity extends Activity {
 				// If any questions failed to parse within the current file, summarise how many failed
 				if (0 < failedParses) {
 					failedParsesTotal += failedParses;
-					Log.e(TAG, failedParses + " questions were unable to be parsed in file questions/" + fileName); // Dev String
+					Log.e(TAG, failedParses + " questions were unable to be parsed in file " + questionFilePath + fileName); // Dev String
 				}
 			}
 			
@@ -83,8 +89,7 @@ public class QuizActivity extends Activity {
 			Log.e(TAG, "Error reading questions.", e); // Dev String
 			Toast.makeText(getApplicationContext(), res.getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
 		}
-	
-		// Randomise the output order of the questions
-		Collections.shuffle(questions);
+		
+		return questions;
 	}
 }
