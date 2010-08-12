@@ -36,7 +36,7 @@ import android.widget.Toast;
 public class QuizActivity extends Activity {
 	
 	// Private Constants
-	private static final String TAG = "MyActivity";
+	private static final String TAG = "QuizActivity";
 	
 	// Load available resources
 	private final Resources res = getResources();
@@ -47,31 +47,38 @@ public class QuizActivity extends Activity {
 		
 		// Load up all questions available from the files
 		try {
+			int failedParsesTotal = 0;
 			for (final String fileName : getAssets().list("questions/")) {
 				final InputStream input = getAssets().open("questions/" + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
 				// Populate the questions ArrayList
 				String inputLine;
-				int numberOfFailedParses = 0;
+				int failedParses = 0;
 				while (null != (inputLine = reader.readLine())) {
 					// Ignore any comments in the question file
 					if (!inputLine.startsWith("//")) {
 						try {
 							questions.add(Question.parse(inputLine));
 						} catch (final IllegalArgumentException e) {
-							numberOfFailedParses++;
+							failedParses++;
 							Log.e(TAG, "Unable to parse question: " + inputLine, e); // Dev String
 						}
 					}
 				}
 				
-				// If any questions failed to parse, summarise how many failed
-				if (0 < numberOfFailedParses) {
-					Log.e(TAG, numberOfFailedParses + " questions were unable to be parsed"); // Dev String
-					Toast.makeText(getApplicationContext(), String.format(res.getString(R.plurals.question_reading_parse_fail_number), numberOfFailedParses), Toast.LENGTH_LONG).show();
+				// If any questions failed to parse within the current file, summarise how many failed
+				if (0 < failedParses) {
+					failedParsesTotal += failedParses;
+					Log.e(TAG, failedParses + " questions were unable to be parsed in file questions/" + fileName); // Dev String
 				}
 			}
+			
+			// If any questions failed to parse within any file, summarise (to the user) how many failed
+			if (0 < failedParsesTotal) {
+				Toast.makeText(getApplicationContext(), String.format(res.getString(R.plurals.question_reading_parse_fail_number), failedParsesTotal), Toast.LENGTH_LONG).show();
+			}
+			
 		} catch (final IOException e) {
 			Log.e(TAG, "Error reading questions.", e); // Dev String
 			Toast.makeText(getApplicationContext(), res.getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
