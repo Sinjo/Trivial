@@ -51,15 +51,14 @@ final class Question {
 		final ArrayList<String> answers = new ArrayList<String>();
 		
 		// Split the input on commas
-		try {
-		questionComponents = Arrays.asList(input.split(","));
-		} catch (final NullPointerException e) {
-			// TODO: Check if input is null, throw IllegalArgumentException
-			throw new RuntimeException("Question to be parsed was null.", e); // Dev String
+		if (null != input) {
+			questionComponents = Arrays.asList(input.split(","));
+		} else {
+			throw new IllegalArgumentException("Question to be parsed was null."); // Dev String
 		}
 		
 		// Extract the component parts of the question
-		try {
+		if (4 > questionComponents.size()) {
 			questionType = questionComponents.get(0).trim();
 			question = questionComponents.get(1).trim();
 			
@@ -67,9 +66,8 @@ final class Question {
 				answers.add(s.trim());
 			}
 			
-		} catch (final IndexOutOfBoundsException e) {
-			// TODO: Check earlier that the correct number of parts is given, IllegalArgumentException if not
-			throw new RuntimeException("Question provided had an invalid format: Insufficient Parts.", e); // Dev String
+		} else {
+			throw new IllegalArgumentException("Question had insufficient parts. Note that at least two answers are required."); // Dev String
 		}
 		
 		// Construct and return a new Question
