@@ -44,7 +44,7 @@ final class Question {
 	 * @return a {@link Question} representation of the input string.
 	 * @throws IllegalArgumentException
 	 */
-	public static Question parse(final String input) {
+	public static Question parse(final String input) throws IllegalArgumentException {
 		
 		final List<String> questionComponents;
 		final String questionType;
