@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +39,9 @@ public class QuizActivity extends Activity {
 	// Private Constants
 	private static final String TAG = "QuizActivity";
 	
-	// Load available resources
+	// Load available resources and assets
 	private final Resources res = getResources();
+	private final AssetManager assets = getAssets();
 	
 	// Load up all questions available from the files
 	private final ArrayList<Question> questions = loadQuestions("questions/");
@@ -54,8 +56,8 @@ public class QuizActivity extends Activity {
 		final ArrayList<Question> questions = new ArrayList<Question>();
 		try {
 			int failedParsesTotal = 0;
-			for (final String fileName : getAssets().list(questionFilePath)) {
-				final InputStream input = getAssets().open(questionFilePath + fileName);
+			for (final String fileName : assets.list(questionFilePath)) {
+				final InputStream input = assets.open(questionFilePath + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
 				// Populate the questions ArrayList
