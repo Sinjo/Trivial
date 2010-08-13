@@ -53,7 +53,7 @@ public class QuizActivity extends Activity {
 	}
 
 	/**
-	 * Loads questions stored in all files at the specified file path.
+	 * Loads questions stored in all files at the specified file path. Returns an empty {@link ArrayList} if there are no questions found.
 	 * 
 	 * @param questionFilePath The file path from which questions should be loaded.
 	 * @return An {@link ArrayList} of all questions found at the specified path.
