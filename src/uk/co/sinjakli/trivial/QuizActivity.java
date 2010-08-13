@@ -52,6 +52,12 @@ public class QuizActivity extends Activity {
 		Collections.shuffle(questions);
 	}
 
+	/**
+	 * Loads questions stored in all files at the specified file path.
+	 * 
+	 * @param questionFilePath The file path from which questions should be loaded.
+	 * @return An {@link ArrayList} of all questions found at the specified path.
+	 */
 	private ArrayList<Question> loadQuestions(final String questionFilePath) {
 		final ArrayList<Question> questions = new ArrayList<Question>();
 		try {
