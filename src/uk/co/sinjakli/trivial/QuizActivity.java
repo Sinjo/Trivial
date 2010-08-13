@@ -84,7 +84,7 @@ public class QuizActivity extends Activity {
 			
 			// If any questions failed to parse within any file, summarise (to the user) how many failed
 			if (0 < failedParsesTotal) {
-				Toast.makeText(getApplicationContext(), String.format(res.getString(R.plurals.question_reading_parse_fail_number), failedParsesTotal), Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), String.format(res.getQuantityString(R.plurals.question_reading_parse_fail_number, failedParsesTotal), failedParsesTotal), Toast.LENGTH_LONG).show();
 			}
 			
 		} catch (final IOException e) {
