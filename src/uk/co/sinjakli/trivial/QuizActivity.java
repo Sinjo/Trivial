@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
