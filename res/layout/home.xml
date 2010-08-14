@@ -31,6 +31,6 @@
 	</RelativeLayout>
 	<Button android:layout_height="wrap_content"
 		android:layout_width="fill_parent" android:text="@string/start_quiz"
-		android:id="@+id/btn_start_quiz" />
+		android:id="@+id/btn_start_quiz" android:clickable="true"/>
 
 </LinearLayout>
