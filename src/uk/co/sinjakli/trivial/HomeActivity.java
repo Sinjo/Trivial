@@ -21,16 +21,28 @@
 package uk.co.sinjakli.trivial;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class HomeActivity extends Activity {
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 
+		final Button startQuiz = (Button) findViewById(R.id.btn_start_quiz);
+		startQuiz.setOnClickListener(new Button.OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				final Intent i = new Intent(HomeActivity.this, QuizActivity.class);
+				startActivity(i);
+			}
+
+		});
 	}
 }
