@@ -23,7 +23,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/home_root_layout">
 	<RelativeLayout android:id="@+id/home_top_relative_layout"
 		android:layout_height="wrap_content" android:layout_width="fill_parent"
-		android:layout_marginTop="100dip">
+		android:layout_marginTop="50dip">
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_centerHorizontal="true"
 			android:text="@string/app_name" android:id="@+id/txt_home_app_name_large"
@@ -33,7 +33,7 @@
 
 	<RelativeLayout android:id="@+id/home_bottom_relative_layout"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true" android:layout_marginBottom="100dip">
+		android:layout_alignParentBottom="true" android:layout_marginBottom="50dip">
 		<Button android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:text="@string/start_quiz"
 			android:id="@+id/btn_start_quiz" android:clickable="true" />
