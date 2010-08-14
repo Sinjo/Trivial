@@ -40,13 +40,17 @@ public class QuizActivity extends Activity {
 	private static final String TAG = "QuizActivity";
 	
 	// Load available resources and assets
-	private final Resources res = getResources();
-	private final AssetManager assets = getAssets();
+	private Resources res;
+	private AssetManager assets;
 	
 	// Load up all questions available from the files
-	private final ArrayList<Question> questions = loadQuestions("questions/");
+	private ArrayList<Question> questions;
 	
 	public void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		res = getResources();
+		assets = getAssets();
+		questions = loadQuestions("questions/");
 
 		// Randomise the output order of the questions
 		Collections.shuffle(questions);
