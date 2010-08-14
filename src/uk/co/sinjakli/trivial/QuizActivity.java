@@ -39,17 +39,11 @@ public class QuizActivity extends Activity {
 	// Private Constants
 	private static final String TAG = "QuizActivity";
 	
-	// Load available resources and assets
-	private Resources res;
-	private AssetManager assets;
-	
 	// Load up all questions available from the files
 	private ArrayList<Question> questions;
 	
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		res = getResources();
-		assets = getAssets();
 		questions = loadQuestions("questions/");
 
 		// Randomise the output order of the questions
@@ -66,8 +60,8 @@ public class QuizActivity extends Activity {
 		final ArrayList<Question> questions = new ArrayList<Question>();
 		try {
 			int failedParsesTotal = 0;
-			for (final String fileName : assets.list(questionFilePath)) {
-				final InputStream input = assets.open(questionFilePath + fileName);
+			for (final String fileName : getAssets().list(questionFilePath)) {
+				final InputStream input = getAssets().open(questionFilePath + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
 				// Populate the questions ArrayList
@@ -94,12 +88,12 @@ public class QuizActivity extends Activity {
 			
 			// If any questions failed to parse within any file, summarise (to the user) how many failed
 			if (0 < failedParsesTotal) {
-				Toast.makeText(getApplicationContext(), String.format(res.getQuantityString(R.plurals.question_reading_parse_fail_number, failedParsesTotal), failedParsesTotal), Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), String.format(getResources().getQuantityString(R.plurals.question_reading_parse_fail_number, failedParsesTotal), failedParsesTotal), Toast.LENGTH_LONG).show();
 			}
 			
 		} catch (final IOException e) {
 			Log.e(TAG, "Error reading questions.", e); // Dev String
-			Toast.makeText(getApplicationContext(), res.getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
 		}
 		
 		return questions;
