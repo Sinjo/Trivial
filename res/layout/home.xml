@@ -26,11 +26,11 @@
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:id="@+id/home_app_name_large"
 			android:gravity="center_horizontal" android:layout_centerHorizontal="true"
-			android:textSize="50px" android:paddingBottom="100px"
-			android:paddingTop="100px" android:text="@string/app_name" />
+			android:text="@string/app_name" android:textSize="50sp" android:paddingTop="100sp"/>
 	</RelativeLayout>
-	<Button android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="@string/start_quiz"
-		android:id="@+id/btn_start_quiz" android:clickable="true"/>
+	
 
+<RelativeLayout android:id="@+id/RelativeLayout02" android:layout_width="wrap_content" android:layout_height="wrap_content"><Button android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:text="@string/start_quiz"
+		android:id="@+id/btn_start_quiz" android:clickable="true" android:layout_marginBottom="100sp" android:layout_alignParentBottom="true"/></RelativeLayout>
 </LinearLayout>
