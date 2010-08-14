@@ -37,7 +37,7 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".QuizActivity"></activity>
+			android:name=".QuizActivity" android:label="@string/app_name"></activity>
 	</application>
 	<uses-sdk
 		android:minSdkVersion="4" />
