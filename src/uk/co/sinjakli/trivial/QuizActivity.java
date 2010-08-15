@@ -25,6 +25,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -41,12 +43,40 @@ public class QuizActivity extends Activity {
 	// Load up all questions available from the files
 	private ArrayList<Question> questions;
 	
+	/**
+	 * Sets up the initial state of the QuizActivity by loading the questions from the asset files.
+	 * 
+	 * @param savedInstanceState Any state which was saved about an ongoing quiz at an earlier time.
+	 */
+	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		questions = loadQuestions("questions/");
+		final AsyncTask<String,Integer,ArrayList<Question>> task = new LoadQuestionsTask().execute("questions/");
+		try {
+			questions = task.get();
+		} catch (final InterruptedException e) {
+			Log.e(TAG, "InterruptedException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
+		} catch (final ExecutionException e) {
+			Log.e(TAG, "ExcecutionException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
+		} catch (final CancellationException e) {
+			Log.e(TAG, "CancellationException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
+		}
+		
+		// If no questions were loaded, close the Activity
+		if (null == questions) {
+			this.finish();
+		}
 
 		// Randomise the output order of the questions
 		Collections.shuffle(questions);
+	}
+	
+	@Override
+	protected void onStart() {
+		
 	}
 
 	/**
@@ -92,7 +122,7 @@ public class QuizActivity extends Activity {
 			
 		} catch (final IOException e) {
 			Log.e(TAG, "Error reading questions.", e); // Dev String
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_ioexception), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
 		}
 		
 		return questions;

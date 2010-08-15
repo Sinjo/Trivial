@@ -26,8 +26,8 @@
     
     <!-- Strings displayed when errors are encountered -->
     
-    <!-- IOException while loading the questions from the asset files -->
-    <string name="question_reading_ioexception">A problem was encountered while loading the questions, and has been logged. Please send the developer a bug report including log output.</string>
+    <!-- Problem while loading the questions from the asset files -->
+    <string name="question_reading_exception">A problem was encountered while loading the questions, and has been logged. Please send the developer a bug report including log output.</string>
 	<!-- Number of strings that could not be parsed -->
 	<plurals name="question_reading_parse_fail_number">
         <item quantity="one">1 question could not be parsed, and has been logged. Please send the developer a bug report including log output.</item>
