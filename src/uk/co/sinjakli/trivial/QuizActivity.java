@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -95,5 +96,21 @@ public class QuizActivity extends Activity {
 		}
 		
 		return questions;
+	}
+	
+	private class LoadQuestionsTask extends AsyncTask<String, Integer, ArrayList<Question>> {
+		
+		// TODO: Move some of the logic from loadQuestion into here. loadQuestion should just deal with an individual file.
+		@Override
+		protected ArrayList<Question> doInBackground(String... params) {
+			ArrayList<Question> questions = new ArrayList<Question>();
+			
+			// Load all questions available at each path given as an argument
+			for (String path : params) {
+				questions.addAll(loadQuestions(path));
+			}
+			return questions;
+		}
+		
 	}
 }
