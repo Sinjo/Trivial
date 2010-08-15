@@ -76,7 +76,7 @@ public class QuizActivity extends Activity {
 	
 	@Override
 	protected void onStart() {
-		
+		super.onStart();
 	}
 
 	/**
