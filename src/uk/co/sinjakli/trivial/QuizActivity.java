@@ -41,8 +41,9 @@ public class QuizActivity extends Activity {
 	// Private Constants
 	private static final String TAG = "QuizActivity";
 	
-	// Load up all questions available from the files
+	// private member variables
 	private ArrayList<Question> questions;
+	private long seed;
 	
 	/**
 	 * Sets up the initial state of the QuizActivity by loading the questions from the asset files.
@@ -72,12 +73,11 @@ public class QuizActivity extends Activity {
 		}
 
 		// Either load the seed if it has been stored, or create one and store it if it hasn't
-		long seed;
-		if (savedInstanceState.containsKey("seed")) {
+
+		if (null != savedInstanceState && savedInstanceState.containsKey("seed")) {
 			seed = savedInstanceState.getLong("seed");
 		} else {
 			seed = new Random().nextLong();
-			savedInstanceState.putLong("seed", seed);	
 		}
 		
 		// Randomise the output order of the questions
@@ -88,6 +88,12 @@ public class QuizActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putLong("seed", seed);
+		super.onSaveInstanceState(outState);
 	}
 
 	/**
