@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
@@ -70,8 +71,18 @@ public class QuizActivity extends Activity {
 			this.finish();
 		}
 
+		// Either load the seed if it has been stored, or create one and store it if it hasn't
+		long seed;
+		if (savedInstanceState.containsKey("seed")) {
+			seed = savedInstanceState.getLong("seed");
+		} else {
+			seed = new Random().nextLong();
+			savedInstanceState.putLong("seed", seed);	
+		}
+		
 		// Randomise the output order of the questions
-		Collections.shuffle(questions);
+		final Random rand = new Random(seed);
+		Collections.shuffle(questions, rand);
 	}
 	
 	@Override
