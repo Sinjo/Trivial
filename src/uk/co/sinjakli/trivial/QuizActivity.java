@@ -41,7 +41,7 @@ public class QuizActivity extends Activity {
 	// Private Constants
 	private static final String TAG = "QuizActivity";
 	
-	// private member variables
+	// Private member variables
 	private ArrayList<Question> questions;
 	private long seed;
 	
