@@ -89,11 +89,6 @@ public class QuizActivity extends Activity {
 	}
 	
 	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-	
-	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putLong("seed", seed);
 		outState.putInt("currentQuestion", currentQuestion);
