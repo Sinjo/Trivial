@@ -26,8 +26,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -54,27 +52,8 @@ public class QuizActivity extends Activity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final AsyncTask<String,Integer,ArrayList<Question>> task = new LoadQuestionsTask().execute("questions/");
-		try {
-			questions = task.get();
-		} catch (final InterruptedException e) {
-			Log.e(TAG, "InterruptedException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
-		} catch (final ExecutionException e) {
-			Log.e(TAG, "ExcecutionException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
-		} catch (final CancellationException e) {
-			Log.e(TAG, "CancellationException while attempting to load questions using LoadQuestionsTask.", e); // Dev String
-			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
-		}
 		
-		// If no questions were loaded, close the Activity
-		if (null == questions) {
-			this.finish();
-		}
-
 		// Either load the seed if it has been stored, or create one and store it if it hasn't
-
 		if (null != savedInstanceState && savedInstanceState.containsKey("seed") && savedInstanceState.containsKey("currentQuestion")) {
 			seed = savedInstanceState.getLong("seed");
 			currentQuestion = savedInstanceState.getInt("currentQuestion");
@@ -83,9 +62,7 @@ public class QuizActivity extends Activity {
 			currentQuestion = 0;
 		}
 		
-		// Randomise the output order of the questions
-		final Random rand = new Random(seed);
-		Collections.shuffle(questions, rand);
+		new LoadQuestionsTask().execute("questions/");
 	}
 	
 	@Override
@@ -144,19 +121,28 @@ public class QuizActivity extends Activity {
 		return questions;
 	}
 	
-	private class LoadQuestionsTask extends AsyncTask<String, Integer, ArrayList<Question>> {
+	private class LoadQuestionsTask extends AsyncTask<String, Integer, Void> {
 		
 		// TODO: Move some of the logic from loadQuestion into here. loadQuestion should just deal with an individual file.
 		@Override
-		protected ArrayList<Question> doInBackground(String... params) {
+		protected Void doInBackground(String... params) {
 			ArrayList<Question> questions = new ArrayList<Question>();
 			
 			// Load all questions available at each path given as an argument
 			for (String path : params) {
 				questions.addAll(loadQuestions(path));
 			}
-			return questions;
+			QuizActivity.this.questions = questions;
+			
+			// If no questions were loaded, close the Activity
+			if (QuizActivity.this.questions.isEmpty()) {
+				QuizActivity.this.finish();
+			}
+			
+			// Randomise the output order of the questions
+			final Random rand = new Random(seed);
+			Collections.shuffle(questions, rand);
+			return null;
 		}
-		
 	}
 }
