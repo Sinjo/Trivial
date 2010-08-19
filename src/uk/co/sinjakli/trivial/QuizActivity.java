@@ -31,6 +31,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -52,6 +53,8 @@ public class QuizActivity extends Activity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		questions = new ArrayList<Question>();
 		
 		// Either load the seed if it has been stored, or create one and store it if it hasn't
 		if (null != savedInstanceState && savedInstanceState.containsKey("seed") && savedInstanceState.containsKey("currentQuestion")) {
@@ -126,23 +129,31 @@ public class QuizActivity extends Activity {
 		// TODO: Move some of the logic from loadQuestion into here. loadQuestion should just deal with an individual file.
 		@Override
 		protected Void doInBackground(String... params) {
-			ArrayList<Question> questions = new ArrayList<Question>();
 			
 			// Load all questions available at each path given as an argument
 			for (String path : params) {
 				questions.addAll(loadQuestions(path));
 			}
-			QuizActivity.this.questions = questions;
-			
-			// If no questions were loaded, close the Activity
-			if (QuizActivity.this.questions.isEmpty()) {
-				QuizActivity.this.finish();
-			}
 			
 			// Randomise the output order of the questions
 			final Random rand = new Random(seed);
 			Collections.shuffle(questions, rand);
+			
 			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			
+			// If no questions were loaded, close the Activity
+			if (questions.isEmpty()) {
+				// TODO: This could return some sort of status to the HomeActivity, which could then display a failure message
+				QuizActivity.this.finish();
+				return;
+			}
+			
+			TextView questionTopic = (TextView) findViewById(R.id.quiz_topic);
+			questionTopic.setText(questions.get(currentQuestion).getQuestionType());
 		}
 	}
 }
