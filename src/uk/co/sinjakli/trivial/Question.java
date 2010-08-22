@@ -59,7 +59,7 @@ final class Question {
 		}
 		
 		// Extract the component parts of the question
-		if (4 > questionComponents.size()) {
+		if (4 < questionComponents.size()) {
 			questionType = questionComponents.get(0).trim();
 			question = questionComponents.get(1).trim();
 			
