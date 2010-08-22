@@ -37,7 +37,6 @@ public class HomeActivity extends Activity {
 		final Button startQuiz = (Button) findViewById(R.id.btn_start_quiz);
 		startQuiz.setOnClickListener(new Button.OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				final Intent i = new Intent(HomeActivity.this, QuizActivity.class);
 				startActivity(i);
