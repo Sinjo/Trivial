@@ -31,6 +31,9 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +56,7 @@ public class QuizActivity extends Activity {
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		questions = new ArrayList<Question>();
 		
 		// Either load the seed if it has been stored, or create one and store it if it hasn't
@@ -65,7 +68,7 @@ public class QuizActivity extends Activity {
 			currentQuestion = 0;
 		}
 		
-		new LoadQuestionsTask().execute("questions/");
+		new LoadQuestionsTask().execute("questions");
 	}
 	
 	@Override
@@ -86,7 +89,7 @@ public class QuizActivity extends Activity {
 		try {
 			int failedParsesTotal = 0;
 			for (final String fileName : getAssets().list(questionFilePath)) {
-				final InputStream input = getAssets().open(questionFilePath + fileName);
+				final InputStream input = getAssets().open(questionFilePath + "/" + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 				
 				// Populate the questions ArrayList
@@ -107,7 +110,7 @@ public class QuizActivity extends Activity {
 				// If any questions failed to parse within the current file, summarise how many failed
 				if (0 < failedParses) {
 					failedParsesTotal += failedParses;
-					Log.e(TAG, failedParses + " questions were unable to be parsed in file " + questionFilePath + fileName); // Dev String
+					Log.e(TAG, failedParses + " questions were unable to be parsed in file " + questionFilePath + "/" + fileName); // Dev String
 				}
 			}
 			
@@ -152,8 +155,18 @@ public class QuizActivity extends Activity {
 				return;
 			}
 			
-			TextView questionTopic = (TextView) findViewById(R.id.quiz_topic);
-			questionTopic.setText(questions.get(currentQuestion).getQuestionType());
+			setContentView(R.layout.quiz);
+			
+			// Display the topic of the question
+			TextView quizTopic = (TextView) findViewById(R.id.quiz_topic);
+			quizTopic.setText(questions.get(currentQuestion).getQuestionType());
+			
+			// Display the question
+			TextView quizQuestion = (TextView) findViewById(R.id.quiz_question);
+			quizQuestion.setText(questions.get(currentQuestion).getQuestion());
+			
+			// Display the answers to the question
+			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
 		}
 	}
 }
