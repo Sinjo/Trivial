@@ -52,8 +52,8 @@
 			android:layout_marginBottom="10dip"></TextView>
 	</RelativeLayout>
 	<ListView
-		android:id="@+id/ListView01"
 		android:layout_height="fill_parent"
 		android:clickable="true"
-		android:layout_width="fill_parent"></ListView>
+		android:layout_width="fill_parent"
+		android:id="@+id/quiz_answers"></ListView>
 </LinearLayout>
