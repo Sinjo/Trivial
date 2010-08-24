@@ -166,8 +166,8 @@ public class QuizActivity extends Activity {
 			
 			// Display the answers to the question
 			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
-			// FIXME: NotFoundException on quiz_answer_row_text
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, R.id.quiz_answer_row_text, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
+			// TODO: Use my own TextView for this list to controll appearance, make it look like the rest of the app
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
 		}
 	}
