@@ -99,7 +99,7 @@ final class Question {
 	 * 
 	 * @return the answers, in a random order, as an ArrayList of String
 	 */
-	public final Iterable<String> getAnswers() {
+	public final List<String> getAnswers() {
 		// ArryList is not immutable, create a defensive copy
 		final ArrayList<String> answers = new ArrayList<String>(this.answers);
 		Collections.shuffle(answers);

@@ -31,8 +31,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -167,6 +166,9 @@ public class QuizActivity extends Activity {
 			
 			// Display the answers to the question
 			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
+			// FIXME: NotFoundException on quiz_answer_row_text
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, R.id.quiz_answer_row_text, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
+			quizAnswers.setAdapter(adapter);
 		}
 	}
 }
