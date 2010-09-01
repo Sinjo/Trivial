@@ -128,7 +128,7 @@ public class QuizActivity extends Activity {
 	
 	private class LoadQuestionsTask extends AsyncTask<String, Integer, Void> {
 		
-		// TODO: Move some of the logic from loadQuestion into here. loadQuestion should just deal with an individual file.
+		// TODO: Move some of the logic from loadQuestions into here. loadQuestions should just deal with an individual file.
 		@Override
 		protected Void doInBackground(String... params) {
 			
@@ -166,7 +166,7 @@ public class QuizActivity extends Activity {
 			
 			// Display the answers to the question
 			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
-			// TODO: Use my own TextView for this list to controll appearance, make it look like the rest of the app
+			// TODO: Use my own TextView for this list to control appearance, make it look like the rest of the app
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
 		}
