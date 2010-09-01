@@ -31,6 +31,8 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -169,6 +171,16 @@ public class QuizActivity extends Activity {
 			// TODO: Use my own TextView for this list to control appearance, make it look like the rest of the app
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
+			
+			// Set up an OnClickListener for the ListView
+			quizAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Log.v(TAG, ((TextView) view).getText().toString());
+					
+				}
+			});
 		}
 	}
 }
