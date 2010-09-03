@@ -124,7 +124,7 @@ public class QuizActivity extends Activity {
 				int failedParses = 0;
 				while (null != (inputLine = reader.readLine())) {
 					// Ignore any comments in the question file
-					if (!inputLine.startsWith("//")) {
+					if (!inputLine.startsWith("//") && !(inputLine.length() == 0)) {
 						try {
 							questions.add(Question.parse(inputLine));
 						} catch (final IllegalArgumentException e) {
