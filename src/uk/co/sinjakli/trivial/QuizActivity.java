@@ -206,10 +206,12 @@ public class QuizActivity extends Activity {
 					String selectedAnswer = ((TextView) view).getText().toString();
 					if (selectedAnswer.equals(questions.get(currentQuestion).getAnswer())) {
 						correctAnswers++;
-						Log.v(TAG, "Correct answer chosen");
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_correct), Toast.LENGTH_SHORT).show();
+						Log.v(TAG, "Correct answer chosen: " + selectedAnswer);
 					} else {
 						incorrectAnswers++;
-						Log.v(TAG, "Incorrect answer chosen");
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_incorrect), Toast.LENGTH_SHORT).show();
+						Log.v(TAG, "Incorrect answer chosen: " + selectedAnswer);
 					}
 				}
 			});

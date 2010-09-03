@@ -24,7 +24,12 @@
     <!-- Displayed on the button which begins the quiz when clicked -->
     <string name="start_quiz">Start Quiz</string>
     
-    <!-- Strings displayed when errors are encountered -->
+    <!-- Question answered correctly -->
+    <string name="answer_correct">Correct!</string>
+    <!-- Question answered incorrectly -->
+    <string name="answer_incorrect">Incorrect!</string>
+    
+    <!-- Error strings -->
     
     <!-- Problem while loading the questions from the asset files -->
     <string name="question_reading_exception">A problem was encountered while loading the questions, and has been logged. Please send the developer a bug report including log output.</string>
