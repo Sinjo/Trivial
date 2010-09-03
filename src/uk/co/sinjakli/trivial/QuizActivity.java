@@ -182,20 +182,27 @@ public class QuizActivity extends Activity {
 				return;
 			}
 			
+			displayQuestion(currentQuestion);
+		}
+
+		/**
+		 * 
+		 */
+		private void displayQuestion(final int questionID) {
 			setContentView(R.layout.quiz);
 			
 			// Display the topic of the question
 			TextView quizTopic = (TextView) findViewById(R.id.quiz_topic);
-			quizTopic.setText(questions.get(currentQuestion).getQuestionType());
+			quizTopic.setText(questions.get(questionID).getQuestionType());
 			
 			// Display the question
 			TextView quizQuestion = (TextView) findViewById(R.id.quiz_question);
-			quizQuestion.setText(questions.get(currentQuestion).getQuestion());
+			quizQuestion.setText(questions.get(questionID).getQuestion());
 			
 			// Display the answers to the question
 			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
 			// TODO: Use my own TextView for this list to control appearance, make it look like the rest of the app
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(currentQuestion).getAnswers().toArray(new String[0]));
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(questionID).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
 			
 			// Set up an OnClickListener for the ListView
@@ -204,7 +211,7 @@ public class QuizActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					String selectedAnswer = ((TextView) view).getText().toString();
-					if (selectedAnswer.equals(questions.get(currentQuestion).getAnswer())) {
+					if (selectedAnswer.equals(questions.get(questionID).getAnswer())) {
 						correctAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_correct), Toast.LENGTH_SHORT).show();
 						Log.v(TAG, "Correct answer chosen: " + selectedAnswer);
@@ -213,6 +220,11 @@ public class QuizActivity extends Activity {
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_incorrect), Toast.LENGTH_SHORT).show();
 						Log.v(TAG, "Incorrect answer chosen: " + selectedAnswer);
 					}
+					
+					// TODO: Check that there is a next question
+					// Display the next question
+					currentQuestion++;
+					displayQuestion(currentQuestion);
 				}
 			});
 		}
