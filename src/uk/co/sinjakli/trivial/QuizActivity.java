@@ -47,7 +47,9 @@ public class QuizActivity extends Activity {
 	// Private member variables
 	private ArrayList<Question> questions;
 	private long seed;
-	int currentQuestion;
+	private int currentQuestion;
+	private int correctAnswers;
+	private int incorrectAnswers;
 	
 	/**
 	 * Sets up the initial state of the QuizActivity by loading the questions from the asset files.
@@ -177,8 +179,12 @@ public class QuizActivity extends Activity {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Log.v(TAG, ((TextView) view).getText().toString());
-					
+					String selectedAnswer = ((TextView) view).getText().toString();
+					if (selectedAnswer.equals(questions.get(currentQuestion).getAnswer())) {
+						Log.v(TAG, "Correct answer chosen");
+					} else {
+						Log.v(TAG, "Incorrect answer chosen");
+					}
 				}
 			});
 		}
