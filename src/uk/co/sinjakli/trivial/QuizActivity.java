@@ -63,12 +63,36 @@ public class QuizActivity extends Activity {
 		questions = new ArrayList<Question>();
 		
 		// Either load the seed if it has been stored, or create one and store it if it hasn't
-		if (null != savedInstanceState && savedInstanceState.containsKey("seed") && savedInstanceState.containsKey("currentQuestion")) {
-			seed = savedInstanceState.getLong("seed");
-			currentQuestion = savedInstanceState.getInt("currentQuestion");
+		if (null != savedInstanceState) {
+			if (savedInstanceState.containsKey("seed")) {
+				seed = savedInstanceState.getLong("seed");
+			} else {
+				seed = new Random().nextLong();
+			}
+			
+			if (savedInstanceState.containsKey("currentQuestion")) {
+				currentQuestion = savedInstanceState.getInt("currentQuestion");
+			} else {
+				currentQuestion = 0;
+			}
+			
+			if (savedInstanceState.containsKey("correctAnswers")) {
+				correctAnswers = savedInstanceState.getInt("correctAnswers");
+			} else {
+				correctAnswers = 0;
+			}
+			
+			if (savedInstanceState.containsKey("incorrectAnswers")) {
+				incorrectAnswers = savedInstanceState.getInt("incorrectAnswers");
+			} else {
+				incorrectAnswers = 0;
+			}	
 		} else {
+			// There is no saved instance data, set it all up from scratch
 			seed = new Random().nextLong();
 			currentQuestion = 0;
+			correctAnswers = 0;
+			incorrectAnswers = 0;
 		}
 		
 		new LoadQuestionsTask().execute("questions");
@@ -181,8 +205,10 @@ public class QuizActivity extends Activity {
 						int position, long id) {
 					String selectedAnswer = ((TextView) view).getText().toString();
 					if (selectedAnswer.equals(questions.get(currentQuestion).getAnswer())) {
+						correctAnswers++;
 						Log.v(TAG, "Correct answer chosen");
 					} else {
+						incorrectAnswers++;
 						Log.v(TAG, "Incorrect answer chosen");
 					}
 				}
