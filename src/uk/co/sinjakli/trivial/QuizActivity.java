@@ -214,17 +214,22 @@ public class QuizActivity extends Activity {
 					if (selectedAnswer.equals(questions.get(questionID).getAnswer())) {
 						correctAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_correct), Toast.LENGTH_SHORT).show();
-						Log.v(TAG, "Correct answer chosen: " + selectedAnswer);
+						Log.v(TAG, "Correct Answers: " + correctAnswers);
 					} else {
 						incorrectAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_incorrect), Toast.LENGTH_SHORT).show();
-						Log.v(TAG, "Incorrect answer chosen: " + selectedAnswer);
+						Log.v(TAG, "Incorrect Answers: " + incorrectAnswers);
 					}
 					
 					// TODO: Check that there is a next question
 					// Display the next question
 					currentQuestion++;
-					displayQuestion(currentQuestion);
+					
+					if (currentQuestion <= questions.size() - 1) {
+						displayQuestion(currentQuestion);
+					} else {
+						// TODO: Actually do something at the end of the quiz
+					}
 				}
 			});
 		}
