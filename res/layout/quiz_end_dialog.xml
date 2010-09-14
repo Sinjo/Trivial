@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:id="@+id/quiz_end_root_layout">
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/quiz_end_correct_relative_layout"
+		android:minWidth="100dip">
+		<TextView
+			android:id="@+id/quiz_end_correct_header"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/correct_answers_header"
+			android:layout_centerHorizontal="true"></TextView>
+		<TextView
+			android:layout_below="@+id/quiz_end_correct_header"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/quiz_end_correct_number"
+			android:layout_centerHorizontal="true"
+			android:textSize="30dip"></TextView>
+	</RelativeLayout>
+	<Button
+		android:layout_below="@+id/quiz_end_correct_relative_layout"
+		android:layout_height="wrap_content"
+		android:id="@+id/quiz_end_accept_button"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_marginTop="10dip" android:text="@string/quiz_end_accept_button"></Button>
+	<RelativeLayout
+		android:layout_toRightOf="@+id/quiz_end_correct_relative_layout"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/quiz_end_incorrect_relative_layout"
+		android:minWidth="100dip">
+		<TextView
+			android:id="@+id/quiz_end_incorrect_header"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/incorrect_answers_header"
+			android:layout_centerHorizontal="true"></TextView>
+		<TextView
+			android:layout_below="@+id/quiz_end_incorrect_header"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/quiz_end_incorrect_number"
+			android:layout_centerHorizontal="true"
+			android:textSize="30dip"></TextView>
+	</RelativeLayout>
+
+</RelativeLayout>

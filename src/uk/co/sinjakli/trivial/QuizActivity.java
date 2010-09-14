@@ -28,12 +28,17 @@ import java.util.Collections;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -208,8 +213,7 @@ public class QuizActivity extends Activity {
 			// Set up an OnClickListener for the ListView
 			quizAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
+				public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
 					String selectedAnswer = ((TextView) view).getText().toString();
 					if (selectedAnswer.equals(questions.get(questionID).getAnswer())) {
 						correctAnswers++;
@@ -221,14 +225,43 @@ public class QuizActivity extends Activity {
 						Log.v(TAG, "Incorrect Answers: " + incorrectAnswers);
 					}
 					
-					// TODO: Check that there is a next question
 					// Display the next question
 					currentQuestion++;
 					
 					if (currentQuestion <= questions.size() - 1) {
 						displayQuestion(currentQuestion);
 					} else {
-						// TODO: Actually do something at the end of the quiz
+						// Set up a Dialog
+						final Dialog quizEndDialog = new Dialog(QuizActivity.this);
+						quizEndDialog.setContentView(R.layout.quiz_end_dialog);
+						quizEndDialog.setTitle(getString(R.string.quiz_end_header));
+						quizEndDialog.setCancelable(false);
+						
+						quizEndDialog.setOnDismissListener(new OnDismissListener() {
+							
+							public void onDismiss(DialogInterface dialog) {
+								QuizActivity.this.finish();
+							}
+						});
+						
+						// Set the values for the number of correct and incorrect answers
+						final TextView correctAnswersText = (TextView) quizEndDialog.findViewById(R.id.quiz_end_correct_number);
+						correctAnswersText.setText(String.valueOf(correctAnswers));
+						
+						final TextView incorrectAnswersText = (TextView) quizEndDialog.findViewById(R.id.quiz_end_incorrect_number);
+						incorrectAnswersText.setText(String.valueOf(incorrectAnswers));
+						
+						// Set up the button to return to the main menu
+						final Button quizEndButton = (Button) quizEndDialog.findViewById(R.id.quiz_end_accept_button);
+						quizEndButton.setOnClickListener(new OnClickListener() {
+							
+							public void onClick(final View v) {
+								quizEndDialog.dismiss();
+							}
+						});
+						
+						// Show the Dialog
+						quizEndDialog.show();
 					}
 				}
 			});

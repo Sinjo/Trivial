@@ -24,10 +24,21 @@
     <!-- Displayed on the button which begins the quiz when clicked -->
     <string name="start_quiz">Start Quiz</string>
     
+    <!-- Displayed during the course of a quiz -->
     <!-- Question answered correctly -->
     <string name="answer_correct">Correct!</string>
     <!-- Question answered incorrectly -->
     <string name="answer_incorrect">Incorrect!</string>
+    
+    <!-- Displayed at the end of a quiz -->
+    <!-- End of quiz header -->
+    <string name="quiz_end_header">End of Quiz</string>
+    <!-- Number of correct answers header -->
+    <string name="correct_answers_header">Correct</string>
+    <!-- Number of incorrect answers header -->
+    <string name="incorrect_answers_header">Incorrect</string>
+    <!-- End of quiz accept button -->
+    <string name="quiz_end_accept_button">Return to main menu</string>
     
     <!-- Error strings -->
     
