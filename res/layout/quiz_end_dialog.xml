@@ -71,5 +71,4 @@
 			android:layout_centerHorizontal="true"
 			android:textSize="30dip"></TextView>
 	</RelativeLayout>
-
 </RelativeLayout>

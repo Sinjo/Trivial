@@ -21,6 +21,9 @@
 <resources>
     <string name="app_name">Trivial</string>
     
+    <!-- Home screen -->
+    <!-- Number of questions to be asked in this quiz -->
+    <string name="number_of_questions">Number of questions:</string>
     <!-- Displayed on the button which begins the quiz when clicked -->
     <string name="start_quiz">Start Quiz</string>
     
@@ -42,6 +45,8 @@
     
     <!-- Error strings -->
     
+    <!-- Invalid input for number of questions -->
+    <string name="invalid_number_of_questions">The number of questions specified was invalid.</string>
     <!-- Problem while loading the questions from the asset files -->
     <string name="question_reading_exception">A problem was encountered while loading the questions, and has been logged. Please send the developer a bug report including log output.</string>
 	<!-- Number of strings that could not be parsed -->

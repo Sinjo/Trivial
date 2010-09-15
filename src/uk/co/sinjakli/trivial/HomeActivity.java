@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
@@ -38,7 +40,23 @@ public class HomeActivity extends Activity {
 		startQuiz.setOnClickListener(new Button.OnClickListener() {
 
 			public void onClick(View v) {
+				// Set up Intent to launch QuizActivity
 				final Intent i = new Intent(HomeActivity.this, QuizActivity.class);
+				
+				// Retrieve user input for number of questions
+				final EditText numberOfQuestionsInput = (EditText) findViewById(R.id.input_number_of_questions);
+				final int numberOfQuestions;
+				try {
+					numberOfQuestions = Integer.parseInt(numberOfQuestionsInput.getText().toString());
+				} catch (final NumberFormatException e) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.invalid_number_of_questions), Toast.LENGTH_LONG).show();
+					return;
+				}
+				
+				// Add number of questions to the Intent's extras
+				i.putExtra("numberOfQuestions", numberOfQuestions);
+				
+				// Launch QuizActivity
 				startActivity(i);
 			}
 		});
