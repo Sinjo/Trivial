@@ -48,6 +48,7 @@ public class QuizActivity extends Activity {
 	
 	// Private Constants
 	private static final String TAG = "QuizActivity";
+	public static final int DEFAULT_NUMBER_OF_QUESTIONS = 20;
 	
 	// Private member variables
 	private ArrayList<Question> questions;
@@ -55,6 +56,7 @@ public class QuizActivity extends Activity {
 	private int currentQuestion;
 	private int correctAnswers;
 	private int incorrectAnswers;
+	private int numberOfQuestions;
 	
 	/**
 	 * Sets up the initial state of the QuizActivity by loading the questions from the asset files.
@@ -67,7 +69,7 @@ public class QuizActivity extends Activity {
 
 		questions = new ArrayList<Question>();
 		
-		// Either load the seed if it has been stored, or create one and store it if it hasn't
+		// Either load saved state of this Activity, or initialise it with new values
 		if (null != savedInstanceState) {
 			if (savedInstanceState.containsKey("seed")) {
 				seed = savedInstanceState.getLong("seed");
@@ -100,13 +102,26 @@ public class QuizActivity extends Activity {
 			incorrectAnswers = 0;
 		}
 		
+		// Get number of questions this quiz activity should display
+		if (null != savedInstanceState && savedInstanceState.containsKey("numberOfQuestions")) {
+			numberOfQuestions = savedInstanceState.getInt("numberOfQuestions");
+		} else if (null != getIntent().getExtras() && getIntent().getExtras().containsKey("numberOfQuestions")) {
+			numberOfQuestions = getIntent().getExtras().getInt("numberOfQuestions");
+		} else {
+			Log.w(TAG, "QuizActivity has been started without a specified number of questions. This indicates an error in the way it is being called."); // Dev String
+			numberOfQuestions = DEFAULT_NUMBER_OF_QUESTIONS;
+		}
+
 		new LoadQuestionsTask().execute("questions");
 	}
 	
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(final Bundle outState) {
 		outState.putLong("seed", seed);
 		outState.putInt("currentQuestion", currentQuestion);
+		outState.putInt("correctAnswers", correctAnswers);
+		outState.putInt("incorrectAnswers", incorrectAnswers);
+		outState.putInt("numberOfQuestions", numberOfQuestions);
 		super.onSaveInstanceState(outState);
 	}
 
@@ -118,6 +133,7 @@ public class QuizActivity extends Activity {
 	 */
 	private ArrayList<Question> loadQuestions(final String questionFilePath) {
 		final ArrayList<Question> questions = new ArrayList<Question>();
+		// TODO: This try block surrounds far too much code that it doesn't need to, figure out what can go outside
 		try {
 			int failedParsesTotal = 0;
 			for (final String fileName : getAssets().list(questionFilePath)) {
@@ -164,15 +180,19 @@ public class QuizActivity extends Activity {
 		// TODO: Move some of the logic from loadQuestions into here. loadQuestions should just deal with an individual file.
 		@Override
 		protected Void doInBackground(String... params) {
+			final ArrayList<Question> questionsTemp = new ArrayList<Question>();
 			
 			// Load all questions available at each path given as an argument
 			for (String path : params) {
-				questions.addAll(loadQuestions(path));
+				questionsTemp.addAll(loadQuestions(path));
 			}
 			
 			// Randomise the output order of the questions
 			final Random rand = new Random(seed);
-			Collections.shuffle(questions, rand);
+			Collections.shuffle(questionsTemp, rand);
+			
+			// Trim the questions to the number specified by the user
+			questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions));
 			
 			return null;
 		}
