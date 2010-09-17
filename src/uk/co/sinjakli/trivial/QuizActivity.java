@@ -204,10 +204,9 @@ public class QuizActivity extends Activity {
 			if (questions.isEmpty()) {
 				// TODO: This could return some sort of status to the HomeActivity, which could then display a failure message
 				QuizActivity.this.finish();
-				return;
+			} else {
+				displayQuestion(currentQuestion);
 			}
-			
-			displayQuestion(currentQuestion);
 		}
 
 		/**
