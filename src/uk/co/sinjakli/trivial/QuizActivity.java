@@ -28,17 +28,13 @@ import java.util.Collections;
 import java.util.Random;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -216,24 +212,24 @@ public class QuizActivity extends Activity {
 			setContentView(R.layout.quiz);
 			
 			// Display the topic of the question
-			TextView quizTopic = (TextView) findViewById(R.id.quiz_topic);
+			final TextView quizTopic = (TextView) findViewById(R.id.quiz_topic);
 			quizTopic.setText(questions.get(questionID).getQuestionType());
 			
 			// Display the question
-			TextView quizQuestion = (TextView) findViewById(R.id.quiz_question);
+			final TextView quizQuestion = (TextView) findViewById(R.id.quiz_question);
 			quizQuestion.setText(questions.get(questionID).getQuestion());
 			
 			// Display the answers to the question
-			ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
+			final ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
 			// TODO: Use my own TextView for this list to control appearance, make it look like the rest of the app
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(questionID).getAnswers().toArray(new String[0]));
+			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(questionID).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
 			
 			// Set up an OnClickListener for the ListView
 			quizAnswers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 				public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-					String selectedAnswer = ((TextView) view).getText().toString();
+					final String selectedAnswer = ((TextView) view).getText().toString();
 					if (selectedAnswer.equals(questions.get(questionID).getAnswer())) {
 						correctAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_correct), Toast.LENGTH_SHORT).show();
@@ -250,37 +246,13 @@ public class QuizActivity extends Activity {
 					if (currentQuestion <= questions.size() - 1) {
 						displayQuestion(currentQuestion);
 					} else {
-						// Set up a Dialog
-						final Dialog quizEndDialog = new Dialog(QuizActivity.this);
-						quizEndDialog.setContentView(R.layout.quiz_end_dialog);
-						quizEndDialog.setTitle(getString(R.string.quiz_end_header));
-						quizEndDialog.setCancelable(false);
+						// Fire off a new Intent, and end this Activity
+						final Intent i = new Intent(QuizActivity.this, QuizEndActivity.class);
+						i.putExtra("correctAnswers", correctAnswers);
+						i.putExtra("incorrectAnswers", incorrectAnswers);
+						startActivity(i);
 						
-						quizEndDialog.setOnDismissListener(new OnDismissListener() {
-							
-							public void onDismiss(DialogInterface dialog) {
-								QuizActivity.this.finish();
-							}
-						});
-						
-						// Set the values for the number of correct and incorrect answers
-						final TextView correctAnswersText = (TextView) quizEndDialog.findViewById(R.id.quiz_end_correct_number);
-						correctAnswersText.setText(String.valueOf(correctAnswers));
-						
-						final TextView incorrectAnswersText = (TextView) quizEndDialog.findViewById(R.id.quiz_end_incorrect_number);
-						incorrectAnswersText.setText(String.valueOf(incorrectAnswers));
-						
-						// Set up the button to return to the main menu
-						final Button quizEndButton = (Button) quizEndDialog.findViewById(R.id.quiz_end_accept_button);
-						quizEndButton.setOnClickListener(new OnClickListener() {
-							
-							public void onClick(final View v) {
-								quizEndDialog.dismiss();
-							}
-						});
-						
-						// Show the Dialog
-						quizEndDialog.show();
+						QuizActivity.this.finish();
 					}
 				}
 			});
