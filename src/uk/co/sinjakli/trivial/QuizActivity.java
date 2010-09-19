@@ -188,7 +188,11 @@ public class QuizActivity extends Activity {
 			Collections.shuffle(questionsTemp, rand);
 			
 			// Trim the questions to the number specified by the user
-			questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions));
+			if (numberOfQuestions < questionsTemp.size()) {
+				questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions - 1));
+			} else {
+				questions = questionsTemp;
+			}
 			
 			return null;
 		}
