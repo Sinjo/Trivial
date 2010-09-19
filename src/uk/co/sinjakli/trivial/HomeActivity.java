@@ -53,6 +53,12 @@ public class HomeActivity extends Activity {
 					return;
 				}
 				
+				// Check that the user has requested at least one question
+				if (numberOfQuestions < 1) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.invalid_number_of_questions), Toast.LENGTH_LONG).show();
+					return;
+				}
+				
 				// Add number of questions to the Intent's extras
 				i.putExtra("numberOfQuestions", numberOfQuestions);
 				
