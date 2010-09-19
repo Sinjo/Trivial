@@ -189,7 +189,7 @@ public class QuizActivity extends Activity {
 			
 			// Trim the questions to the number specified by the user
 			if (numberOfQuestions < questionsTemp.size()) {
-				questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions - 1));
+				questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions));
 			} else {
 				questions = questionsTemp;
 			}
