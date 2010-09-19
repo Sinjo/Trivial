@@ -28,12 +28,16 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:id="@+id/quiz_end_top_relative_layout" android:layout_above="@+id/quiz_end_totals_relative_layout" android:layout_marginBottom="100dip">
+		android:id="@+id/quiz_end_top_relative_layout"
+		android:layout_above="@+id/quiz_end_totals_relative_layout"
+		android:layout_marginBottom="100dip">
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:layout_above="@+id/quiz_end_correct_relative_layout"
-			android:id="@+id/txt_end_of_quiz" android:text="@string/quiz_end_header" android:textSize="50dip"></TextView>
+			android:id="@+id/txt_end_of_quiz"
+			android:text="@string/quiz_end_header"
+			android:textSize="50dip"></TextView>
 	</RelativeLayout>
 	<RelativeLayout
 		android:layout_height="wrap_content"
@@ -85,7 +89,8 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:id="@+id/quiz_end_bottom_relative_layout" android:layout_marginTop="50dip">
+		android:id="@+id/quiz_end_bottom_relative_layout"
+		android:layout_marginTop="50dip">
 		<Button
 			android:layout_below="@+id/quiz_end_correct_relative_layout"
 			android:layout_height="wrap_content"
