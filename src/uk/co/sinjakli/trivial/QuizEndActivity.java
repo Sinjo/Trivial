@@ -59,4 +59,11 @@ public class QuizEndActivity extends Activity {
 
 		// Set the values for correct and incorrect answers		final TextView correctAnswersText = (TextView) findViewById(R.id.quiz_end_correct_number);		correctAnswersText.setText(String.valueOf(correctAnswers));		final TextView incorrectAnswersText = (TextView) findViewById(R.id.quiz_end_incorrect_number);		incorrectAnswersText.setText(String.valueOf(incorrectAnswers));		// Set up the button to return to the main menu		final Button quizEndButton = (Button) findViewById(R.id.quiz_end_accept_button);		quizEndButton.setOnClickListener(new OnClickListener() {			public void onClick(final View v) {				QuizEndActivity.this.finish();			}		});
 	}
+	
+	@Override
+	protected void onSaveInstanceState(final Bundle outState) {
+		outState.putInt("correctAnswers", correctAnswers);
+		outState.putInt("incorrectAnswers", incorrectAnswers);
+		super.onSaveInstanceState(outState);
+	}
 }
