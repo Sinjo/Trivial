@@ -28,7 +28,8 @@
 		android:id="@+id/home_top_relative_layout"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
-		android:layout_marginTop="50dip">
+		android:layout_above="@+id/home_number_questions_relative_layout"
+		android:layout_marginBottom="30dip">
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -66,8 +67,8 @@
 		android:id="@+id/home_bottom_relative_layout"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_marginBottom="50dip">
+		android:layout_below="@+id/home_number_questions_relative_layout"
+		android:layout_marginTop="32dip">
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"

@@ -30,7 +30,7 @@
 		android:layout_centerHorizontal="true"
 		android:id="@+id/quiz_end_top_relative_layout"
 		android:layout_above="@+id/quiz_end_totals_relative_layout"
-		android:layout_marginBottom="80dip">
+		android:layout_marginBottom="30dip">
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
@@ -90,12 +90,11 @@
 		android:layout_width="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:id="@+id/quiz_end_bottom_relative_layout"
-		android:layout_marginTop="50dip">
+		android:layout_marginTop="30dip">
 		<Button
 			android:layout_height="wrap_content"
 			android:id="@+id/quiz_end_accept_button"
 			android:layout_centerHorizontal="true"
-			android:layout_marginTop="10dip"
 			android:text="@string/quiz_end_accept_button"
 			android:layout_width="fill_parent"></Button>
 	</RelativeLayout>
