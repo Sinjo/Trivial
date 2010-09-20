@@ -61,7 +61,7 @@
 			android:width="50dip"
 			android:digits="0123456789"
 			android:inputType="number"
-			android:imeOptions="actionNone"></EditText>
+			android:imeOptions="actionDone"></EditText>
 	</RelativeLayout>
 	<RelativeLayout
 		android:id="@+id/home_bottom_relative_layout"
