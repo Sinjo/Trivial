@@ -226,7 +226,7 @@ public class QuizActivity extends Activity {
 			// Display the answers to the question
 			final ListView quizAnswers = (ListView) findViewById(R.id.quiz_answers);
 			// TODO: Use my own TextView for this list to control appearance, make it look like the rest of the app
-			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, android.R.layout.simple_list_item_1, questions.get(questionID).getAnswers().toArray(new String[0]));
+			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(QuizActivity.this, R.layout.quiz_answer_row, questions.get(questionID).getAnswers().toArray(new String[0]));
 			quizAnswers.setAdapter(adapter);
 			
 			// Set up an OnClickListener for the ListView
