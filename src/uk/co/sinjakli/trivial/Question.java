@@ -46,25 +46,25 @@ final class Question {
 	 */
 	public static Question parse(final String input) throws IllegalArgumentException {
 		
-		final List<String> questionComponents;
+		final String[] questionComponents;
 		final String questionType;
 		final String question;
 		final ArrayList<String> answers = new ArrayList<String>();
 		
 		// Split the input on commas
 		if (null != input) {
-			questionComponents = Arrays.asList(input.split(","));
+			questionComponents = input.split(",");
 		} else {
 			throw new IllegalArgumentException("Question to be parsed was null."); // Dev String
 		}
 		
 		// Extract the component parts of the question
-		if (4 < questionComponents.size()) {
-			questionType = questionComponents.get(0).trim();
-			question = questionComponents.get(1).trim();
+		if (4 < questionComponents.length) {
+			questionType = questionComponents[0].trim();
+			question = questionComponents[1].trim();
 			
-			for (final String s : questionComponents.subList(2, questionComponents.size())) {
-				answers.add(s.trim());
+			for (int i = 2; i < questionComponents.length; i++) {
+				answers.add(questionComponents[i].trim());
 			}
 			
 		} else {
