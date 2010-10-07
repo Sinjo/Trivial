@@ -127,8 +127,8 @@ public class QuizActivity extends Activity {
 	 * @param questionFilePath The file path from which questions should be loaded.
 	 * @return An {@link ArrayList} of all questions found at the specified path.
 	 */
-	private ArrayList<Question> loadQuestions(final String questionFilePath) {
-		final ArrayList<Question> questions = new ArrayList<Question>();
+	private ArrayList<String> loadQuestions(final String questionFilePath) {
+		final ArrayList<String> questions = new ArrayList<String>();
 		// TODO: This try block surrounds far too much code that it doesn't need to, figure out what can go outside
 		try {
 			int failedParsesTotal = 0;
@@ -143,7 +143,7 @@ public class QuizActivity extends Activity {
 					// Ignore any comments in the question file
 					if (!inputLine.startsWith("//") && !(inputLine.length() == 0)) {
 						try {
-							questions.add(Question.parse(inputLine));
+							questions.add(inputLine);
 						} catch (final IllegalArgumentException e) {
 							failedParses++;
 							Log.e(TAG, "Unable to parse question: " + inputLine, e); // Dev String
@@ -176,7 +176,7 @@ public class QuizActivity extends Activity {
 		// TODO: Move some of the logic from loadQuestions into here. loadQuestions should just deal with an individual file.
 		@Override
 		protected Void doInBackground(String... params) {
-			final ArrayList<Question> questionsTemp = new ArrayList<Question>();
+			final ArrayList<String> questionsTemp = new ArrayList<String>();
 			
 			// Load all questions available at each path given as an argument
 			for (String path : params) {
@@ -187,11 +187,15 @@ public class QuizActivity extends Activity {
 			final Random rand = new Random(seed);
 			Collections.shuffle(questionsTemp, rand);
 			
+			// TODO: Parse only the necessary questions into the questions ArrayList
 			// Trim the questions to the number specified by the user
 			if (numberOfQuestions < questionsTemp.size()) {
-				questions = new ArrayList<Question>(questionsTemp.subList(0, numberOfQuestions));
+				questions = new ArrayList<Question>();
+				for (String s : questionsTemp.subList(0, numberOfQuestions)) {
+					
+				}
 			} else {
-				questions = questionsTemp;
+				questions = new ArrayList<Question>();
 			}
 			
 			return null;
