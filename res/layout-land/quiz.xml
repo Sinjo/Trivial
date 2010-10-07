@@ -54,13 +54,11 @@
 	<RelativeLayout
 		android:id="@+id/quiz_answers_relative_layout"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		>
+		android:layout_height="fill_parent">
 		<ListView
 			android:layout_height="fill_parent"
 			android:clickable="true"
 			android:layout_width="fill_parent"
 			android:id="@+id/quiz_answers"></ListView>
 	</RelativeLayout>
-
 </LinearLayout>
