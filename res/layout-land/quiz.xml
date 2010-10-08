@@ -34,7 +34,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textSize="50dip"
+			android:textSize="40dip"
 			android:text="Topic"
 			android:id="@+id/quiz_topic"
 			android:layout_centerHorizontal="true"></TextView>
@@ -55,7 +55,10 @@
 				android:minLines="3"
 				android:layout_marginBottom="10dip"
 				android:maxWidth="250dip"
-				android:minWidth="250dip" android:textSize="15dip" android:layout_centerVertical="true" android:paddingLeft="5dip"></TextView>
+				android:minWidth="250dip"
+				android:textSize="20dip"
+				android:layout_centerVertical="true"
+				android:paddingLeft="5dip"></TextView>
 		</RelativeLayout>
 		<RelativeLayout
 			android:id="@+id/quiz_answers_relative_layout"
