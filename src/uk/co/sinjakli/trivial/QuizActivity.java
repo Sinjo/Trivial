@@ -186,18 +186,21 @@ public class QuizActivity extends Activity {
 			// Randomise the output order of the questions
 			final Random rand = new Random(seed);
 			Collections.shuffle(questionsTemp, rand);
-			
+
 			// TODO: Parse only the necessary questions into the questions ArrayList
 			// Trim the questions to the number specified by the user
 			if (numberOfQuestions < questionsTemp.size()) {
 				questions = new ArrayList<Question>();
 				for (String s : questionsTemp.subList(0, numberOfQuestions)) {
-					
+					questions.add(Question.parse(s));
 				}
 			} else {
 				questions = new ArrayList<Question>();
+				for (String s : questionsTemp) {
+					questions.add(Question.parse(s));
+				}
 			}
-			
+
 			return null;
 		}
 		
