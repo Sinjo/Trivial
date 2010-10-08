@@ -131,7 +131,6 @@ public class QuizActivity extends Activity {
 		final ArrayList<String> questions = new ArrayList<String>();
 		// TODO: This try block surrounds far too much code that it doesn't need to, figure out what can go outside
 		try {
-			int failedParsesTotal = 0;
 			for (final String fileName : getAssets().list(questionFilePath)) {
 				final InputStream input = getAssets().open(questionFilePath + "/" + fileName);
 				final BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -142,32 +141,14 @@ public class QuizActivity extends Activity {
 				while (null != (inputLine = reader.readLine())) {
 					// Ignore any comments in the question file
 					if (!inputLine.startsWith("//") && !(inputLine.length() == 0)) {
-						try {
 							questions.add(inputLine);
-						} catch (final IllegalArgumentException e) {
-							failedParses++;
-							Log.e(TAG, "Unable to parse question: " + inputLine, e); // Dev String
-						}
 					}
 				}
-				
-				// If any questions failed to parse within the current file, summarise how many failed
-				if (0 < failedParses) {
-					failedParsesTotal += failedParses;
-					Log.e(TAG, failedParses + " questions were unable to be parsed in file " + questionFilePath + "/" + fileName); // Dev String
-				}
 			}
-			
-			// If any questions failed to parse within any file, summarise (to the user) how many failed
-			if (0 < failedParsesTotal) {
-				Toast.makeText(getApplicationContext(), String.format(getResources().getQuantityString(R.plurals.question_reading_parse_fail_number, failedParsesTotal), failedParsesTotal), Toast.LENGTH_LONG).show();
-			}
-			
 		} catch (final IOException e) {
-			Log.e(TAG, "Error reading questions.", e); // Dev String
+			Log.e(TAG, "IOException while reading questions from file.", e); // Dev String
 			Toast.makeText(getApplicationContext(), getResources().getString(R.string.question_reading_exception), Toast.LENGTH_LONG).show();
 		}
-		
 		return questions;
 	}
 	
@@ -187,17 +168,39 @@ public class QuizActivity extends Activity {
 			final Random rand = new Random(seed);
 			Collections.shuffle(questionsTemp, rand);
 
-			// TODO: Parse only the necessary questions into the questions ArrayList
+			// TODO: Get rid of horrible duplicated code below
 			// Trim the questions to the number specified by the user
 			if (numberOfQuestions < questionsTemp.size()) {
+				int failedParses = 0;
 				questions = new ArrayList<Question>();
 				for (String s : questionsTemp.subList(0, numberOfQuestions)) {
-					questions.add(Question.parse(s));
+					try {
+						questions.add(Question.parse(s));
+					} catch (final IllegalArgumentException e) {
+						failedParses++;
+						Log.e(TAG, "Unable to parse question: " + s, e); // Dev String
+					}
+				}
+
+				// If any questions failed to parse, summarise (to the user) how many failed
+				if (0 < failedParses) {
+					Toast.makeText(getApplicationContext(), String.format(getResources().getQuantityString(R.plurals.question_reading_parse_fail_number, failedParses), failedParses), Toast.LENGTH_LONG).show();
 				}
 			} else {
+				int failedParses = 0;
 				questions = new ArrayList<Question>();
 				for (String s : questionsTemp) {
-					questions.add(Question.parse(s));
+					try {
+						questions.add(Question.parse(s));
+					} catch (final IllegalArgumentException e) {
+						failedParses++;
+						Log.e(TAG, "Unable to parse question: " + s, e); // Dev String
+					}
+				}
+
+				// If any questions failed to parse, summarise (to the user) how many failed
+				if (0 < failedParses) {
+					Toast.makeText(getApplicationContext(), String.format(getResources().getQuantityString(R.plurals.question_reading_parse_fail_number, failedParses), failedParses), Toast.LENGTH_LONG).show();
 				}
 			}
 
