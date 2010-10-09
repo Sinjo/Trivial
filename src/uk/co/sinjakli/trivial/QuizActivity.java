@@ -247,11 +247,9 @@ public class QuizActivity extends Activity {
 					if (selectedAnswer.equals(questions.get(questionID).getAnswer())) {
 						correctAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_correct), Toast.LENGTH_SHORT).show();
-						Log.v(TAG, "Correct Answers: " + correctAnswers);
 					} else {
 						incorrectAnswers++;
 						Toast.makeText(getApplicationContext(), getResources().getString(R.string.answer_incorrect), Toast.LENGTH_SHORT).show();
-						Log.v(TAG, "Incorrect Answers: " + incorrectAnswers);
 					}
 					
 					// Display the next question
