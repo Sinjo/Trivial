@@ -137,7 +137,6 @@ public class QuizActivity extends Activity {
 				
 				// Populate the questions ArrayList
 				String inputLine;
-				int failedParses = 0;
 				while (null != (inputLine = reader.readLine())) {
 					// Ignore any comments in the question file
 					if (!inputLine.startsWith("//") && !(inputLine.length() == 0)) {
